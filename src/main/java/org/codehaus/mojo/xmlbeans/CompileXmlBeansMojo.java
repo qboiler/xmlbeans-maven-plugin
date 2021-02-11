@@ -126,21 +126,19 @@ public class CompileXmlBeansMojo
      *     and compile scope
      */
     public final File[] getClasspath()
+        throws DependencyResolutionRequiredException
     {
         List results = new ArrayList();
-        try {
-            for ( Iterator i = project.getCompileClasspathElements().iterator(); i.hasNext(); )
-            {
-                results.add( new File( (String) i.next() ) );
-            }
-        } catch (DependencyResolutionRequiredException e) {
-            e.printStackTrace();
+        for ( Iterator i = project.getCompileClasspathElements().iterator(); i.hasNext(); )
+        {
+            results.add( new File( (String) i.next() ) );
         }
 
         return (File[]) results.toArray( EMPTY_FILE_ARRAY );
     }
 
-    protected void updateProject( MavenProject project, SchemaCompiler.Parameters compilerParams, boolean stale ) throws XmlBeansException
+    protected void updateProject( MavenProject project, SchemaCompiler.Parameters compilerParams, boolean stale )
+        throws DependencyResolutionRequiredException, XmlBeansException
     {
         if ( getLog().isDebugEnabled() ) 
         {

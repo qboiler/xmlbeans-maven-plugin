@@ -20,6 +20,7 @@ package org.codehaus.mojo.xmlbeans;
  */
 
 import org.apache.maven.artifact.Artifact;
+import org.apache.maven.artifact.DependencyResolutionRequiredException;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
@@ -307,7 +308,7 @@ public abstract class AbstractXmlBeansPlugin extends AbstractMojo implements Plu
                 }
                 updateProject( project, compilerParams, stale );
             }
-            catch ( RuntimeException drre )
+            catch ( DependencyResolutionRequiredException drre )
             {
                 throw new XmlBeansException( XmlBeansException.CLASSPATH_DEPENDENCY, drre );
             }
@@ -339,7 +340,7 @@ public abstract class AbstractXmlBeansPlugin extends AbstractMojo implements Plu
 
     protected abstract void updateProject( MavenProject project, SchemaCompiler.Parameters compilerParams, 
                                            boolean stale )
-        throws  XmlBeansException;
+        throws DependencyResolutionRequiredException, XmlBeansException;
 
     protected abstract List getXsdJars();
 
@@ -452,7 +453,8 @@ public abstract class AbstractXmlBeansPlugin extends AbstractMojo implements Plu
      * @return Array of classpath entries.
      * @throws DependencyResolutionRequiredException Plugin wasn't annotated with the right requiresDependencyResolution
      */
-    public abstract File[] getClasspath();
+    public abstract File[] getClasspath()
+        throws DependencyResolutionRequiredException;
 
     /**
      * Returns null. Currently the compiler preference isn't passwed to the xml

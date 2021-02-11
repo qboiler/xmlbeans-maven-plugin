@@ -24,6 +24,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.maven.artifact.DependencyResolutionRequiredException;
 import org.xml.sax.EntityResolver;
 
 /**
@@ -121,7 +122,8 @@ interface PluginProperties
      * @throws DependencyResolutionRequiredException
      *          Maven Dependencies weren't resolved.
      */
-    File[] getClasspath();
+    File[] getClasspath()
+            throws DependencyResolutionRequiredException;
 
     /**
      * Returns the directory for saving generated source files.

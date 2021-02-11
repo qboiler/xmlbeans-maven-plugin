@@ -21,6 +21,7 @@ package org.codehaus.mojo.xmlbeans;
 
 import java.io.IOException;
 
+import org.apache.maven.artifact.DependencyResolutionRequiredException;
 import org.apache.xml.resolver.CatalogManager;
 import org.apache.xml.resolver.tools.CatalogResolver;
 import org.apache.xmlbeans.impl.tool.SchemaCompiler;
@@ -54,7 +55,7 @@ public final class ParameterAdapter
      * @throws XmlBeansException if we cannot translate the compiler parameters
      */
     static SchemaCompiler.Parameters getCompilerParameters( final PluginProperties properties )
-            throws  XmlBeansException
+            throws DependencyResolutionRequiredException, XmlBeansException
     {
         SchemaCompiler.Parameters params = new SchemaCompiler.Parameters();
 
